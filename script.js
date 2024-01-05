@@ -214,8 +214,13 @@ function getCountryCoordinates(country) {
     }
 }
 
-const map = L.map('map').setView([0, 0], 2);
+const map = L.map('map', {
+    center: [0, 0],
+    zoom: 1,
+    minZoom: 2,
+    maxBounds: L.latLngBounds([90, -180], [-90, 180]),
 
+});
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap contributors'
         }).addTo(map);
