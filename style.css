@@ -1,0 +1,14 @@
+#map {
+    height: 500px;
+    width: 100%;
+}
+
+.user-count {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: bold;
+    color: white;
+    font-size: 12px;
+}
