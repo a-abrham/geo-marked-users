@@ -214,6 +214,20 @@ function getCountryCoordinates(country) {
     }
 }
 
+
+function createCustomIcon(count, country) {
+    return L.divIcon({
+        className: 'custom-marker',
+        iconSize: [40, 40],
+        html: `<div class="custom-icon">
+                <div class="marker-count">${count}</div>
+                <div class="marker-country">${country}</div>
+            </div>`,
+    });
+}
+
+
+
 const map = L.map('map', {
     center: [0, 0],
     zoom: 1,
@@ -227,6 +241,10 @@ const map = L.map('map', {
 
         data.forEach(item => {
             const coordinates = getCountryCoordinates(item.country);
-            const marker = L.marker(coordinates).addTo(map);
+        
+            const marker = L.marker(coordinates, { icon: createCustomIcon(item.count, item.country) }).addTo(map);
+        
             marker.bindPopup(`${item.country}: ${item.count}`);
-});
+        });
+
+        
