@@ -195,15 +195,15 @@ const countryCoordinatesMapping = {
     "Zimbabwe": [-19.0154, 29.1549]
 };
 
-const data = [
-            // { "country": "Ethiopia", "count": 3 },
-            // { "country": "China", "count": 4 },
-            { "country": "France", "count": 5 },
-            { "country": "Brazil", "count": 2 },
-            { "country": "Australia", "count": 1 },
-            { "country": "Canada", "count": 3 },
-            { "country": "India", "count": 4 },
-        ];
+// const data = [
+//     // { "country": "Ethiopia", "count": 3 },
+//     // { "country": "China", "count": 4 },
+//     { "country": "France", "count": 5 },
+//     { "country": "Brazil", "count": 2 },
+//     { "country": "Australia", "count": 1 },
+//     { "country": "Canada", "count": 3 },
+//     { "country": "India", "count": 4 },
+// ];
 
 function getCountryCoordinates(country) {
     if (countryCoordinatesMapping.hasOwnProperty(country)) {
@@ -239,12 +239,18 @@ const map = L.map('map', {
             attribution: '© OpenStreetMap contributors'
         }).addTo(map);
 
-        data.forEach(item => {
-            const coordinates = getCountryCoordinates(item.country);
-        
-            const marker = L.marker(coordinates, { icon: createCustomIcon(item.count, item.country) }).addTo(map);
-        
-            marker.bindPopup(`${item.country}: ${item.count}`);
-        });
-
+        fetch('https://alumni-website-production.up.railway.app/geodata')
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(item => {
+                const country = item.country || 'Ethiopia';
+                const coordinates = getCountryCoordinates(country);
+    
+                const marker = L.marker(coordinates, { icon: createCustomIcon(item.count, country) }).addTo(map);
+    
+                marker.bindPopup(`${country}: ${item.count}`);
+            });
+        })
+        .catch(error => console.error('Error fetching data:', error));
+    
         
