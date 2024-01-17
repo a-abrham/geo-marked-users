@@ -1,6 +1,8 @@
 #map {
-    height: 500px;
-    width: 850px;
+    height: 100vh;
+}
+::-webkit-scrollbar {
+  width: 0px;
 }
 
 .custom-marker {
