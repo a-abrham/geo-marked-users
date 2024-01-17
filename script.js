@@ -239,7 +239,8 @@ const map = L.map('map', {
             attribution: '© OpenStreetMap contributors'
         }).addTo(map);
 
-        fetch('https://alumni-website-production.up.railway.app/geodata')
+
+        fetch('https://alumni-website-production.up.railway.app/geoData')
         .then(response => response.json())
         .then(data => {
             data.forEach(item => {
@@ -248,9 +249,37 @@ const map = L.map('map', {
     
                 const marker = L.marker(coordinates, { icon: createCustomIcon(item.count, country) }).addTo(map);
     
+                marker.on('click', function () {
+                    const userDataEndpoint = 'https://alumni-website-production.up.railway.app/userDataByCountry'; // Replace with your actual endpoint
+                    const queryParams = `country=${encodeURIComponent(country)}`;
+    
+                    fetch(`${userDataEndpoint}?${queryParams}`)
+                        .then(response => response.json())
+                        .then(userData => {
+                            renderUserData(userData);
+                        })
+                        .catch(error => console.error('Error fetching user data by country:', error));
+                });
+    
                 marker.bindPopup(`${country}: ${item.count}`);
             });
         })
         .catch(error => console.error('Error fetching data:', error));
     
-        
+
+function renderUserData(userData) {
+    const container = document.getElementById('userDataContainer');
+    
+    container.innerHTML = '';
+
+    userData.forEach(user => {
+        const userElement = document.createElement('div');
+        userElement.innerHTML = `
+            <p>Name: ${user.name}</p>
+            <p>Gender: ${user.gender}</p>
+            <p>Profile link: <a href="http://localhost:3000/ProfilePage/${user.username}">${user.name}</a></p>
+            <hr>
+        `;
+        container.appendChild(userElement);
+    });
+}
