@@ -1,4 +1,4 @@
- #map {
+#map {
     height: 80vh;
 }
 ::-webkit-scrollbar {
