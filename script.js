@@ -278,7 +278,6 @@ function renderUserData(userData) {
             <p>Name: ${user.name}</p>
             <p>Gender: ${user.gender}</p>
             <p>Profile link: <a href="http://localhost:3000/ProfilePage/${user.username}" target="_blank">${user.name}</a></p>
-            <hr>
         `;
         container.appendChild(userElement);
     });
