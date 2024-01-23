@@ -220,7 +220,7 @@ function createCustomIcon(count, country) {
         className: 'custom-marker',
         iconSize: [40, 40],
         html: `<div class="custom-icon">
-        <img src="/geo-marked-users/location-pin.png" alt="Country Image">
+        <img src="location-pin.png" alt="Country Image">
       
                 <div class="marker-country">${count} ${country}</div>
                 
