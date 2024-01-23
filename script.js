@@ -220,8 +220,10 @@ function createCustomIcon(count, country) {
         className: 'custom-marker',
         iconSize: [40, 40],
         html: `<div class="custom-icon">
-                <div class="marker-count">${count}</div>
-                <div class="marker-country">${country}</div>
+        <img src="/geo-marked-users/location-pin.png" alt="Country Image">
+      
+                <div class="marker-country">${count} ${country}</div>
+                
             </div>`,
     });
 }
@@ -244,7 +246,8 @@ const map = L.map('map', {
         .then(response => response.json())
         .then(data => {
             data.forEach(item => {
-                const country = item.country || 'Ethiopia';
+            if (item.country !== null) {
+                const country = item.country;
                 const coordinates = getCountryCoordinates(country);
     
                 const marker = L.marker(coordinates, { icon: createCustomIcon(item.count, country) }).addTo(map);
@@ -260,8 +263,7 @@ const map = L.map('map', {
                         })
                         .catch(error => console.error('Error fetching user data by country:', error));
                 });
-    
-                marker.bindPopup(`${country}: ${item.count}`);
+                marker.bindPopup(`${country}: ${item.count}`);}
             });
         })
         .catch(error => console.error('Error fetching data:', error));
