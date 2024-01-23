@@ -250,7 +250,7 @@ const map = L.map('map', {
                 const marker = L.marker(coordinates, { icon: createCustomIcon(item.count, country) }).addTo(map);
     
                 marker.on('click', function () {
-                    const userDataEndpoint = 'https://alumni-website-production.up.railway.app/userDataByCountry'; // Replace with your actual endpoint
+                    const userDataEndpoint = 'https://alumni-website-production.up.railway.app/userDataByCountry';
                     const queryParams = `country=${encodeURIComponent(country)}`;
     
                     fetch(`${userDataEndpoint}?${queryParams}`)
